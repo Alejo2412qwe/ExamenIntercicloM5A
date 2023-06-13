@@ -1,0 +1,7 @@
+com\ista\examen\controller\ProductoController.class
+com\ista\examen\genericService\GenericServiceImpl.class
+com\ista\examen\repository\ProductoRepository.class
+com\ista\examen\genericService\GenericService.class
+com\ista\examen\model\entity\Producto.class
+com\ista\examen\ExamenApplication.class
+com\ista\examen\service\ProductoService.class

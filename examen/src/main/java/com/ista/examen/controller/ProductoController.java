@@ -53,13 +53,20 @@ public class ProductoController {
         Producto productos = productoService.findById(id);
         if (productos != null) {
             try {
+                productos.setIdProducto(pr.getIdProducto());
                 productos.setCantidad(pr.getCantidad());
                 productos.setDescripcion(pr.getDescripcion());
                 productos.setDescuento(pr.getDescuento());
                 productos.setIva(pr.getIva());
                 productos.setPrecio(pr.getPrecio());
-                productos.setPvp(pr.getPvp());
-                productos.setSubtotal(pr.getSubtotal());
+                pr.setSubtotal(pr.calcularSubtotal(pr.getCantidad(), pr.getPrecio()));
+                pr.setDescuento(pr.getDescuento());
+                double iba = pr.getPrecio() * pr.getIva();
+                if (pr.getSubtotal() > 50) {
+                    pr.setPvp((pr.getSubtotal() - pr.getDescuento()) + iba);
+                } else {
+                    pr.setPvp(pr.getSubtotal() + iba);
+                }
                 return new ResponseEntity<>(productoService.save(pr), HttpStatus.CREATED);
             } catch (Exception e) {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
